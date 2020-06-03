@@ -10,7 +10,7 @@ export default class TodoItem extends Component {
     static propTypes ={
         id: propTypes.number.isRequired,
         title: propTypes.string.isRequired,
-        isDone: propTypes.bool.isRequired,
+        completed: propTypes.bool.isRequired,
     }
     constructor() {
         super()
@@ -21,7 +21,7 @@ export default class TodoItem extends Component {
     // state中的值要与props的值保持同步的处理方法
     static getDerivedStateFromProps(props) {
         return {
-            isDoneText: props.isDone ? '已完成' : '待完成'
+            isDoneText: props.completed ? '已完成' : '待完成'
         }
     }
 
@@ -38,14 +38,14 @@ export default class TodoItem extends Component {
         console.log('todoitem被渲染了')
         return (
             <li>
-                <input type="checkbox" checked={this.props.isDone} onChange={this.checkChange}></input>
-                {/* <span>{this.props.title}</span><span>  {this.props.isDone ? '已完成' : '待完成'}</span> */}
+                <input type="checkbox" checked={this.props.completed} onChange={this.checkChange}></input>
+                {/* <span>{this.props.title}</span><span>  {this.props.completed ? '已完成' : '待完成'}</span> */}
                 <span>{this.props.title}</span><span>  {this.state.isDoneText}</span>
             </li>
         )
     }
     // (解决重复渲染问题方式1)生命钩子函数shouldComponentUpdate可设置组件是否更新，根据返回的bool值决定组件是否更新，在里面判断组件是否有必要更新
     shouldComponentUpdate = (nextProps, nextState) => {
-        return nextProps.isDone !== this.props.isDone
+        return nextProps.completed !== this.props.completed
     }
 }
