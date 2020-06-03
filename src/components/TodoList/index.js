@@ -15,6 +15,8 @@ export default class index extends Component {
         isCompletedChange: propTypes.func
     }
     render() {
+        // 从打印信息可以看到，每更改一次todoList的prop信息，整个todoList的组件都会重新渲染一次，包括所有的todoitem，不利于系统的性能
+        console.log('todoList被渲染了')
         return (
             <div>
                 <ul>
