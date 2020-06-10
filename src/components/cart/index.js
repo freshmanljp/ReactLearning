@@ -2,28 +2,31 @@ import React, { Component, Fragment } from 'react'
 // 导入需要使用的action
 import { decrement, increment } from '../../actions/cart'
 
-export default class index extends Component {
-  constructor() {
-    super()
-    this.state = {
-      cartList: []
-    }
-  }
-  // 获取store中相关状态并更新到state中,getState必须为箭头函数，否则this会绑定到store上
-  getState = () => {
-    this.setState({
-      cartList: this.props.store.getState().cart
-    })
-  }
-  // 获取一次state并订阅store中的状态信息变化
-  componentDidMount() {
-    this.getState()
-    this.props.store.subscribe(this.getState)
-  }
+// 需要用到store的组件导入connect方法，connect方法调用后返回高阶组件
+import { connect } from 'react-redux'
+
+class index extends Component {
+  // constructor() {
+  //   super()
+  //   // this.state = {
+  //   //   cartList: []
+  //   // }
+  // }
+  // // 获取store中相关状态并更新到state中,getState必须为箭头函数，否则this会绑定到store上
+  // getState = () => {
+  //   this.setState({
+  //     cartList: this.props.store.getState().cart
+  //   })
+  // }
+  // // 获取一次state并订阅store中的状态信息变化
+  // componentDidMount() {
+  //   this.getState()
+  //   this.props.store.subscribe(this.getState)
+  // }
   // 计算购物车总价
   countTotal() {
     let total = 0
-    this.state.cartList.forEach(item => {
+    this.props.cartList.forEach(item => {
       total += item.price * item.amount
     })
     return total
@@ -47,7 +50,7 @@ export default class index extends Component {
           </thead>
           <tbody>
             {
-              this.state.cartList.map(item => {
+              this.props.cartList.map(item => {
                 return (
                   <Fragment key={item.id}>
                     <tr>
@@ -57,13 +60,13 @@ export default class index extends Component {
                       <td>
                         <button onClick={
                           () => {
-                            this.props.store.dispatch(decrement(item.id))
+                            this.props.decrement(item.id)
                           }
                         }>-</button>
                         <span>{item.amount}</span>
                         <button onClick={
                           () => {
-                            this.props.store.dispatch(increment(item.id))
+                            this.props.increment(item.id)
                           }
                         }>+</button>
                       </td>
@@ -77,5 +80,18 @@ export default class index extends Component {
           <h3>总价为： {this.countTotal()}</h3>
       </Fragment>
     )
+  } 
+}
+
+// state相当于store.getState
+const mapState = (state) =>{
+  // 这里return了什么，在组件中便可通过this.props获取
+  return {
+    cartList: state.cart
   }
 }
+
+// 导出配置好connect的高阶组件，connect常有参数有两个
+// 1.mapState,将store的state映射注入到组件的props中
+// 2.mapDispatch，将store的action映射注入到组件的props中，直接调用即可触发dispatch,传入的刚好就是actionCreater对象，所以只需要出入导入的actionCreater对象
+export default connect(mapState, { increment, decrement })(index)
