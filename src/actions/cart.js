@@ -16,9 +16,17 @@ const decrement = (id) => {
       id: id
     }
   }
- }
+}
+const incrementAsync = (id) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(increment(id))
+    }, 2000)
+  }
+}
 
 export {
   increment,
-  decrement
+  decrement,
+  incrementAsync
 } 

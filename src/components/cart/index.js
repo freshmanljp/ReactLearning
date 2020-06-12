@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 // 导入需要使用的action
-import { decrement, increment } from '../../actions/cart'
+import { decrement, increment, incrementAsync } from '../../actions/cart'
 
 // 需要用到store的组件导入connect方法，connect方法调用后返回高阶组件
 import { connect } from 'react-redux'
@@ -69,6 +69,11 @@ class index extends Component {
                             this.props.increment(item.id)
                           }
                         }>+</button>
+                        <button onClick={
+                          () => {
+                            this.props.incrementAsync(item.id)
+                          }
+                        }>过会再加</button>
                       </td>
                     </tr>
                   </Fragment>
@@ -94,4 +99,4 @@ const mapState = (state) =>{
 // 导出配置好connect的高阶组件，connect常有参数有两个
 // 1.mapState,将store的state映射注入到组件的props中
 // 2.mapDispatch，将store的action映射注入到组件的props中，直接调用即可触发dispatch,传入的刚好就是actionCreater对象，所以只需要出入导入的actionCreater对象
-export default connect(mapState, { increment, decrement })(index)
+export default connect(mapState, { increment, decrement, incrementAsync })(index)
