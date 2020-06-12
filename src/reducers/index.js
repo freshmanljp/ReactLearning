@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import cart from './cart'
+import blog from './blog'
 
 // combineReducers接受的值为对象
 export default combineReducers({
-  cart
+  blog
 })

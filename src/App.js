@@ -1,6 +1,6 @@
 // react-redux的使用
 import React, { Component } from 'react'
-import { Cart } from './components'
+import { Blog } from './components'
 
 // 导入provider组件
 import { Provider } from 'react-redux'
@@ -12,7 +12,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Cart />
+                <Blog />
             </Provider>
         )
     }
