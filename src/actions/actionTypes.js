@@ -1,6 +1,0 @@
-// 在这里定义所有组件的action.type,方便type的管理，避免重名
-export default {
-  START_FETCH_BLOG_LIST: "START_FETCH_BLOG_LIST",
-  FETCH_BLOG_SUCCESS: "FETCH_BLOG_SUCCESS",
-  FETCH_BLOG_FAILED: "FETCH_BLOG_FAILED"
-}

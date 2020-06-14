@@ -1,1 +1,1 @@
-export { default as Blog } from './blog/blogList'
+export { default as GoHomeBtn } from './goHomeBtn'

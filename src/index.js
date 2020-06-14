@@ -2,13 +2,16 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+// history模式
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+// 哈希模式
+// import { HashRouter as Router, Route } from 'react-router-dom'
+
 import App from './App'
 
-// 如果需要全局地扩展React.Component的prototype,如挂载ajax,但一般不挂载ajax
-// import * as services from './services'
-// React.Component.prototype.http = services
-
 render(
-    <App />,
+    <Router>
+        <Route component={App}></Route>
+    </Router>,
     document.querySelector('#root')
 )
